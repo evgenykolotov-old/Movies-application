@@ -9,7 +9,7 @@ function serializeResponse(movies) {
 }
 
 import mutations from "@/store/mutations";
-const { MOVIES } = mutations;
+const { MOVIES, CURRENT_PAGE } = mutations;
 
 const moviesStore = {
   namespaced: true,
@@ -23,11 +23,15 @@ const moviesStore = {
     slicedIDs: ({ top250IDs }) => (from, to) => top250IDs.slice(from, to),
     currentPage: ({ currentPage }) => currentPage,
     moviesPerPage: ({ moviesPerPage }) => moviesPerPage,
-    moviesList: ({ movies }) => movies
+    moviesList: ({ movies }) => movies,
+    moviesLength: ({ top250IDs }) => Object.keys(top250IDs).length
   },
   mutations: {
     [MOVIES](state, value) {
       state.movies = value;
+    },
+    [CURRENT_PAGE](state, value) {
+      state.currentPage = value;
     }
   },
   actions: {
@@ -50,6 +54,10 @@ const moviesStore = {
       } catch (error) {
         console.log(error);
       }
+    },
+    changeCurrentPage({ commit, dispatch }, page) {
+      commit("CURRENT_PAGE", page);
+      dispatch("fetchMovies");
     }
   }
 };
