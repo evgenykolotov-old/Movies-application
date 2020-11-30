@@ -52,7 +52,7 @@ export default {
 }
 
 .navbar {
-  background-color: rgba(0, 0, 0, 0.7) im !important;
+  background-color: rgba(0, 0, 0, 0.7) !important;
 }
 
 .search-input {
